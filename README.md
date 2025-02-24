@@ -1,119 +1,202 @@
-# Full-Stack Coding Challenge
+# Task Manager Application
 
-**Deadline**: Sunday, Feb 23th 11:59 pm PST
+A **minimal** and **stylish** full-stack Task Manager application. Register, log in, and manage your tasks (create, update, mark as complete/incomplete, and delete) with ease.
 
 ---
 
 ## Overview
 
-Create a “Task Management” application with **React + TypeScript** (frontend), **Node.js** (or **Nest.js**) (backend), and **PostgreSQL** (database). The application should:
+- **Backend:**  
+  Built with Node.js, Express, and TypeScript. Uses PostgreSQL as the database.
+- **Frontend:**  
+  Built with React and TypeScript.
 
-1. **Register** (sign up) and **Log in** (sign in) users.
-2. After logging in, allow users to:
-   - **View a list of tasks**.
-   - **Create a new task**.
-   - **Update an existing task** (e.g., mark complete, edit).
-   - **Delete a task**.
-
-Focus on **correctness**, **functionality**, and **code clarity** rather than visual design.  
-This challenge is intended to be completed within ~3 hours, so keep solutions minimal yet functional.
+> **Note:** The PostgreSQL database is set up locally, so you need to create the database on your machine.
 
 ---
 
-## Requirements
+## Table of Contents
 
-### 1. Authentication
-
-- **User Model**:
-  - `id`: Primary key
-  - `username`: Unique string
-  - `password`: Hashed string
-- **Endpoints**:
-  - `POST /auth/register` – Create a new user
-  - `POST /auth/login` – Login user, return a token (e.g., JWT)
-- **Secure the Tasks Routes**: Only authenticated users can perform task operations.  
-  - **Password Hashing**: Use `bcrypt` or another hashing library to store passwords securely.
-  - **Token Verification**: Verify the token (JWT) on each request to protected routes.
-
-### 2. Backend (Node.js or Nest.js)
-
-- **Tasks CRUD**:  
-  - `GET /tasks` – Retrieve a list of tasks (optionally filtered by user).  
-  - `POST /tasks` – Create a new task.  
-  - `PUT /tasks/:id` – Update a task (e.g., mark as complete, edit text).  
-  - `DELETE /tasks/:id` – Delete a task.
-- **Task Model**:
-  - `id`: Primary key
-  - `title`: string
-  - `description`: string (optional)
-  - `isComplete`: boolean (default `false`)
-  - _(Optional)_ `userId` to link tasks to the user who created them
-- **Database**: PostgreSQL
-  - Provide instructions/migrations to set up:
-    - `users` table (with hashed passwords)
-    - `tasks` table
-- **Setup**:
-  - `npm install` to install dependencies
-  - `npm run start` (or `npm run dev`) to run the server
-  - Document any environment variables (e.g., database connection string, JWT secret)
-
-### 3. Frontend (React + TypeScript)
-
-- **Login / Register**:
-  - Simple forms for **Register** and **Login**.
-  - Store JWT (e.g., in `localStorage`) upon successful login.
-  - If not authenticated, the user should not see the tasks page.
-- **Tasks Page**:
-  - Fetch tasks from `GET /tasks` (including auth token in headers).
-  - Display the list of tasks.
-  - Form to create a new task (`POST /tasks`).
-  - Buttons/fields to update a task (`PUT /tasks/:id`).
-  - Button to delete a task (`DELETE /tasks/:id`).
-- **Navigation**:
-  - Show `Login`/`Register` if not authenticated.
-  - Show `Logout` if authenticated.
-- **Setup**:
-  - `npm install` then `npm start` (or `npm run dev`) to run.
-  - Document how to point the frontend at the backend (e.g., `.env` file, base URL).
+- [Local Database Setup](#local-database-setup)
+- [Installation & Setup](#installation--setup)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
+  - [Environment Variables](#environment-variables)
+- [Running the Application](#running-the-application)
+- [Testing](#testing)
+- [Video Demo](#video-demo)
+- [Additional Notes](#additional-notes)
+- [Salary Expectation](#salary-expectation)
 
 ---
 
-## Deliverables
+## Local Database Setup
 
-1. **Fork the Public Repository**: **Fork** this repo into your own GitHub account.
-2. **Implement Your Solution** in the forked repository. Make sure you're README file has:
-   - Steps to set up the database (migrations, environment variables).
-   - How to run the backend.
-   - How to run the frontend.
-   - Any relevant notes on testing.
-   - Salary Expectations per month (Mandatory)
-3. **Short Video Demo**: Provide a link (in a `.md` file in your forked repo) to a brief screen recording showing:
-   - Registering a user
-   - Logging in
-   - Creating, updating, and deleting tasks
-4. **Deadline**: Submissions are due **Sunday, Feb 23th 11:59 pm PST**.
+1. **Install PostgreSQL:**
 
-> **Note**: Please keep your solution minimal. The entire project is intended to be completed in around 3 hours. Focus on core features (registration, login, tasks CRUD) rather than polished UI or extra features.
+   - **macOS (Homebrew):**
+     ```bash
+     brew install postgresql
+     brew services start postgresql
+     ```
+   - **Windows:**
+     Download and install from the [official website](https://www.postgresql.org/download/windows/).
+   - **Linux:**
+     ```bash
+     sudo apt install postgresql postgresql-contrib
+     ```
+
+2. **Create the Database:**
+
+   ```bash
+   createdb taskmanager
+   ```
+
+   _Alternatively, using psql:_
+
+   ```bash
+   psql -U postgres
+   CREATE DATABASE taskmanager;
+   \q
+   ```
+
+3. **Run Migrations:**
+
+   In the `backend/src/migrations` directory, the file `001_create_tables.sql` sets up the required tables (`users` and `tasks`). Run:
+
+   ```bash
+   psql -h localhost -p 5432 -U postgres -d taskmanager -f migrations/001_create_tables.sql
+   ```
+
+   If prompted, set the password using:
+
+   ```bash
+   export PGPASSWORD='your_postgres_password'
+   ```
 
 ---
 
-## Evaluation Criteria
+## Installation & Setup
 
-1. **Functionality**  
-   - Does registration and login work correctly (with password hashing)?
-   - Are tasks protected by authentication?
-   - Does the tasks CRUD flow work end-to-end?
+Clone the repository (it contains two main folders: **backend** and **frontend**):
 
-2. **Code Quality**  
-   - Is the code structured logically and typed in TypeScript?
-   - Are variable/function names descriptive?
+```bash
+git clone https://github.com/pooh8012/lumaa-spring-2025-swe.git
+```
 
-3. **Clarity**  
-   - Is the `README.md` (in your fork) clear and detailed about setup steps?
-   - Easy to run and test?
+### Backend Setup
 
-4. **Maintainability**  
-   - Organized logic (controllers/services, etc.)
-   - Minimal hard-coded values
+1. **Navigate to the backend directory:**
 
-Good luck, and we look forward to your submission!
+   ```bash
+   cd backend
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables:**  
+   Create a `.env` file in the `backend` folder with the following:
+
+   ```env
+   PORT=4000
+   DATABASE_URL=postgres://postgres:pooja@localhost:5432/taskDB
+   JWT_SECRET=2205
+   ```
+
+### Frontend Setup
+
+1. **Navigate to the frontend directory:**
+
+   ```bash
+   cd ../frontend
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables:**  
+   Create a `.env` file in the `frontend` folder with:
+
+   ```env
+   REACT_APP_API_URL=http://localhost:4000
+   ```
+
+---
+
+## Running the Application
+
+### Backend
+
+- **Development Mode:**
+  ```bash
+  npm run dev
+  ```
+- **Production:**
+  ```bash
+  npm run build
+  npm start
+  ```
+  The server runs on the port specified in the `.env` file (default: 5000).
+
+### Frontend
+
+Start the React application with:
+
+```bash
+npm start
+```
+
+The app will be available at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Testing
+
+- **Manual Testing:**
+  - **Register & Login:** Use the UI to create an account and log in.
+  - **Task Management:** Once logged in, create, update (mark complete/incomplete), and delete tasks.
+- **API Testing:**
+  - Use tools like [Postman](https://www.postman.com/) or `curl` to test endpoints:
+    - `POST /auth/register` & `POST /auth/login`
+    - `GET /tasks`, `POST /tasks`, `PUT /tasks/:id`, `DELETE /tasks/:id`
+- **Logging:**  
+  Check the console logs in both backend and frontend for any error messages or debugging info.
+
+---
+
+## Video Demo
+
+Watch the [Video Demo](https://drive.google.com/file/d/1r0dHChE21PptUszVZomHjHsvo6LhPG4z/view) to see the application in action:
+
+- User registration & login
+- Task creation, update, and deletion
+
+---
+
+## Salary Expectation
+
+I can work upto 40 hours a week at $25 per hour, so that would be total of $4,000 monthly. I am open for negotiation.
+
+---
+
+## Additional Notes
+
+- **Minimal & Readable:**  
+  The code is intentionally minimal to ensure clarity and ease of maintenance.
+- **Local Database:**  
+  Ensure PostgreSQL is installed and the `taskmanager` database is created locally.
+- **Environment Variables:**  
+  Set up the `.env` files in both **backend** and **frontend** with the appropriate values.
+- **Security:**  
+  Do not commit your `.env` files to public repositories. Use a `.gitignore` to keep them private.
+
+---
+
+Thank you for checking out the Task Manager Application! If you have any questions or suggestions, please open an issue or contact me.

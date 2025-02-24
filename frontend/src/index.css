@@ -1,0 +1,145 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* index.css */
+
+/* Use a futuristic font (e.g., Orbitron). Include via a CDN or local import */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Orbitron", sans-serif;
+  background: linear-gradient(
+    135deg,
+    #1f1c2c,
+    #928dab
+  ); /* Futuristic gradient */
+  color: #ffffff;
+  height: 100%;
+}
+
+/* A utility class to center the content on the page */
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* A container for form sections (login, register, tasks, etc.) */
+.futuristic-card {
+  background-color: #121212;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+  width: 350px;
+  max-width: 90%;
+}
+
+/* Headings */
+.futuristic-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Form elements */
+.futuristic-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.futuristic-card label {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.futuristic-card input {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+
+/* Buttons */
+.btn {
+  background-color: #00bcd4;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 8px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.btn:hover {
+  background-color: #0097a7;
+}
+
+/* Error & success messages */
+.error {
+  color: #ff1744;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.success {
+  color: #69f0ae;
+  margin-top: 16px;
+  text-align: center;
+}
+
+/* Task list styles */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.task-list-item {
+  background-color: #1e1e1e;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-delete {
+  background-color: #ff4081;
+}
+
+.btn-delete:hover {
+  background-color: #e040fb;
+}
